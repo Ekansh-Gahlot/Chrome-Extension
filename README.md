@@ -1,2 +1,2 @@
 # Chrome-Extension
- A simple chrome extension
+ A simple lead tracker extension for chrome.
