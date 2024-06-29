@@ -10,6 +10,9 @@ Style our app according to the provided design!
 
 green color -> #5f9341
 
+padding is inside the element 
+margin is outside the element
+
 */
 
 
@@ -18,12 +21,14 @@ input {
     width: 100%; /*Takes up 100% the width of the body tag (parent tag) */
     box-sizing: border-box;
     border: 1px solid #5f9341;
-    margin-bottom: 10px;
+    margin-bottom: 4px;
 }
 
 button {
     background-color: #5f9341;
     padding: 10px 20px; /* 10 px for top bottom and 20 px for left-right */
     color: white;
+    font-weight: bold;
+    border: none;
 
 }
