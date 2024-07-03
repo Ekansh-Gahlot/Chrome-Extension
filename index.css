@@ -32,3 +32,20 @@ button {
     border: none;
 
 }
+
+ul{
+    margin-top: 20px;
+    padding-left: 0px;
+    list-style: none;
+}
+
+li{
+    margin-top: 5px;
+}
+
+
+/* Specify that the color is to be applied when anchor tag is only inside the list item (Not necessary in this project) */ 
+
+li a{
+    color: #5f9341;
+}
