@@ -2,12 +2,34 @@ let myLeads = []
 const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("save-btn")
 const ulEl = document.getElementById("ul-el")
+const dltBtn = document.getElementById("dlt-btn")
+const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
 
+
+//Show the list if leadsFromLocalStorage has any value
+if(leadsFromLocalStorage)
+{
+    myLeads = leadsFromLocalStorage
+    renderLeads()
+}
+
+//NOTE - LOCAL STORAGE ONLY SUPPORTS STRINGS
 inputBtn.addEventListener("click", function(){
     myLeads.push(inputEl.value)
     inputEl.value = ""
+    localStorage.setItem("myLeads",JSON.stringify(myLeads))
     renderLeads()
 })
+
+
+dltBtn.addEventListener("dblclick", function(){
+    myLeads = []
+    localStorage.clear("myLeads")
+    renderLeads()
+})
+
+
+
 
 
 function renderLeads(){
@@ -24,6 +46,8 @@ function renderLeads(){
         /*const li = document.createElement("li")
         li.textContent = myLeads[i]
         ulEl.append(li)*/
+
+        //Add elemenet with href
         // const li = document.createElement("li");
         // const a = document.createElement("a");
         // a.textContent = myLeads[i];
@@ -47,4 +71,3 @@ function renderLeads(){
     
     ulEl.innerHTML = listItems
 }
-
