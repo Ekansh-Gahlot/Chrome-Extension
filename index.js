@@ -3,38 +3,20 @@ const inputEl = document.getElementById("input-el")
 const inputBtn = document.getElementById("save-btn")
 const ulEl = document.getElementById("ul-el")
 const dltBtn = document.getElementById("dlt-btn")
+const tabBtn = document.getElementById("tab-btn")
+//NOTE - LOCAL STORAGE ONLY SUPPORTS STRINGS
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
-
 
 //Show the list if leadsFromLocalStorage has any value
 if(leadsFromLocalStorage)
 {
     myLeads = leadsFromLocalStorage
-    renderLeads()
+    render(myLeads)
 }
 
-//NOTE - LOCAL STORAGE ONLY SUPPORTS STRINGS
-inputBtn.addEventListener("click", function(){
-    myLeads.push(inputEl.value)
-    inputEl.value = ""
-    localStorage.setItem("myLeads",JSON.stringify(myLeads))
-    renderLeads()
-})
-
-
-dltBtn.addEventListener("dblclick", function(){
-    myLeads = []
-    localStorage.clear("myLeads")
-    renderLeads()
-})
-
-
-
-
-
-function renderLeads(){
+function render(leadsToRender){
     let listItems = ""
-    for(let i = 0; i < myLeads.length;i++)
+    for(let i = 0; i < leadsToRender.length;i++)
     {
         //First method to add HTML element 
         //listItems += "<li><a target = '_blank' href='" + myLeads[i] + "'>" + myLeads[i] + "</a></li>"
@@ -60,8 +42,8 @@ function renderLeads(){
         //USING TEMPLATE STRING TO SOLVE LISTITEMS LENGTH ISSUE MORE READABLE
         listItems += `
             <li>
-                <a target = '_blank' href='${myLeads[i]}'>
-                    ${myLeads[i]}
+                <a target = '_blank' href='${leadsToRender[i]}'>
+                    ${leadsToRender[i]}
                 </a>
             </li>
         `
@@ -71,3 +53,36 @@ function renderLeads(){
     
     ulEl.innerHTML = listItems
 }
+
+
+//TEMPLATE STRINGS USES $ SIGN TO DISPLAY THE VALUE OF VARIABLE
+
+tabBtn.addEventListener("click",function(){
+    //Grab the URL of current tab in chrome.
+    chrome.tabs.query({active:true, currentWindow: true}, function(tabs){
+        myLeads.push(tabs[0].url)
+        localStorage.setItem("myLeads",JSON.stringify(myLeads))
+        render(myLeads)
+    })       
+})
+
+inputBtn.addEventListener("click", function(){
+    myLeads.push(inputEl.value)
+    inputEl.value = ""
+    localStorage.setItem("myLeads",JSON.stringify(myLeads))
+    render(myLeads)
+})
+
+
+dltBtn.addEventListener("dblclick", function(){
+    myLeads = []
+    localStorage.clear("myLeads")
+    render(myLeads)
+})
+
+
+
+
+
+
+
